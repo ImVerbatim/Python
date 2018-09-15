@@ -10,9 +10,10 @@ def check(piVal, guess, error):
         print(guess)
     return iterations
 
-def newtonian()
-
-
+def newtonian(piVal,Error):
+    guess = 0
+    while abs(piVal - guess) <= Error:
+        if cos(guess) == -1
 
 return
 
