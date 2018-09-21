@@ -1,30 +1,61 @@
+##A.J. Delcimmuto
+##HW2
 import math
 
 
 
-def check(piVal, guess, error):
-    iterations = 0;
-    while abs(piVal - guess) >= error:
-        guess = guess + math.sin(guess)
+
+##iterative
+
+def fixed_point_iteration(f, x):
+    step = 0
+    while not approx_fixed_point(f, x):
+        x = f(x)
+        step += 1
+    return x, step
+
+def approx_fixed_point(f,x):
+    if abs(f(x) - x) <= 1e-15:
+        return True
+    else:
+        return False
+
+
+
+##newtonian
+def newton_update(f, df):
+    def update(x):
+        return x - (f(x) / df(x))
+    return update
+
+
+
+def find_zero(f, df,x):
+    def near_zero(x):
+        return approx_eq(f(x), 0)
+    return improve(newton_update(f, df), near_zero,x)
+
+
+
+def approx_eq(x,y):
+    if abs(x - y) < 1e-15:
+        return True
+    else:
+        return False
+
+def improve(update,close,guess,iterations = 0):
+    while not close(guess):
+        guess = update(guess)
         iterations += 1
-    return iterations
-    
+    return guess,iterations
 
 
+#TESTING FUNCTION CALLS
+#TEST FOR FIXED POINT
+print(fixed_point_iteration(lambda x:math.cos(x), 1.0))
+#TEST FOR NEWTONIAN
+print(find_zero(lambda x:math.cos(x) - x, lambda x:-math.sin(x) - 1,1.0))
 
 
-def newtonian(piVal, Error):
-    guess = 3
-    iterations = 0
-    while abs(piVal - guess) >= Error:
-        guess = guess - (math.sin(guess) / math.cos(guess))
-        iterations = iterations + 1
-  
-    return iterations
-
-
-piValue = 3.141592653589793
-guess = 3
-Error = 0.000000000000001
-print("Iterative method: ", check(piValue, guess, Error))
-print("Newtonian method: ", newtonian(piValue, Error))
+#CALCULATION FOR PI - BOTH ITERATE THE SAME AMMOUNT
+#CALCULATION FOR DOTTIE - 
