@@ -52,9 +52,9 @@ def improve(update,close,guess,iterations = 0):
 
 #TESTING FUNCTION CALLS
 #TEST FOR FIXED POINT
-print(fixed_point_iteration(lambda x:math.cos(x), 1.0))
+print(fixed_point_iteration(lambda x:math.sin(x)+x, 3.0))
 #TEST FOR NEWTONIAN
-print(find_zero(lambda x:math.cos(x) - x, lambda x:-math.sin(x) - 1,1.0))
+print(find_zero(lambda x:math.sin(x), lambda x:math.cos(x),3.0))
 
 
 #CALCULATION FOR PI - BOTH ITERATE THE SAME AMMOUNT
